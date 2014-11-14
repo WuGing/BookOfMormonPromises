@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Book of Mormon Promises</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_data_base_helper">DataBaseHelper</string>
+    <string name="title_activity_main2">MainActivity</string>
+    <string name="action_info">Info</string>
+    <string name="title_activity_info">InfoActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="info_attribute">(Clyde J. Williams, \"Following the Prophets: A Book of Mormon Perspective,\" Ensign, Jul 2000, 19)</string>
+    <string name="info_quote">\"From the Book of Mormon we learn that the Lord always fulfills the promises given through his prophets\"</string>
+    <string name="info_description">This app is designed to allow you to find promises in the Book of Mormon by topic. You can search by your part of the promise (if you are baptized...) or by God\'s part of the promise (...you will be saved). Discover the power of these precious promises.</string>
+
+</resources>
