@@ -1,13 +1,14 @@
 package com.jacobburdis.bom;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.ImageButton;
+import android.widget.CheckBox;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 /**
  * Created by joshua on 4/30/14.
@@ -16,29 +17,45 @@ import android.widget.TextView;
  * to make the list of labels, and then will need an adapter that
  * lists the references and the content of those references.
  */
-public class contentListAdapter extends BaseExpandableListAdapter implements View.OnClickListener {
+public class contentListAdapter extends BaseExpandableListAdapter {
     private Context context;
     private String[][] blessingsList;
     private String[][] conditionsList;
     private String[][] childList;
     private String[] parentList;
     private String[] favoriteList;
-    private String favorite;
+    private String[] favoriteHelperList;
     public LayoutInflater mInflater;
+    private DataBaseHelper myDB;
+    private ArrayList<Boolean> itemChecked = new ArrayList<Boolean>();
 
     public contentListAdapter(Context context) {
         this.context=context;
     }
 
     public contentListAdapter(Context context, String[] parent, String[][] child,
-                              String[][] conditions, String[][] blessings, String[]favorite){
+                              String[][] conditions, String[][] blessings, String[]favorite,
+                              String[] favoriteHelper){
         this.context = context;
         this.parentList = parent;
         this.childList = child;
         this.conditionsList = conditions;
         this.blessingsList = blessings;
         this.favoriteList = favorite;
+        this.favoriteHelperList = favoriteHelper;
         mInflater = LayoutInflater.from(context);
+        myDB = new DataBaseHelper(context);
+
+        // populate the favorite list boolean
+        for (int i = 0; i < this.getGroupCount(); i++){
+            if (favoriteList[i].equals("0")) {
+                itemChecked.add(i, false);
+            }
+            else if (favoriteList[i].equals("1")) {
+                itemChecked.add(i, true);
+            }
+        }
+        myDB.close();
     }
 
     @Override
@@ -77,33 +94,40 @@ public class contentListAdapter extends BaseExpandableListAdapter implements Vie
     }
 
     @Override
-    public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
+    public View getGroupView(final int groupPosition, boolean isExpanded,
+                             View convertView, ViewGroup parent) {
         // test
         convertView = mInflater.inflate(R.layout.group_view, parent, false);
         TextView tv = (TextView) convertView.findViewById(R.id.textTitle);
         tv.setText(parentList[groupPosition]);
-        ImageButton imageButton = (ImageButton) convertView.findViewById(R.id.favorite);
-        imageButton.setFocusable(false);
-        imageButton.setOnClickListener(this);
-        favorite = favoriteList[groupPosition].toString();
-        if (favorite == "0")
-        {
-            imageButton.setBackgroundResource(R.drawable.ic_launcher);
-        }
 
-//        TextView tv = new TextView(context);
-//        tv.setText(parentList[groupPosition]);
-//        tv.setGravity(Gravity.CENTER_VERTICAL);
-//        tv.setHeight(120);
-//        tv.setTextSize(20);
-//        tv.setPadding(90, 0, 0, 0);
+        final CheckBox checkBox = (CheckBox) convertView.findViewById(R.id.favorite);
+
+        checkBox.setFocusable(false);
+
+        checkBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                CheckBox cb = (CheckBox) view.findViewById(R.id.favorite);
+
+                if (cb.isChecked()) {
+                    // Log.v("checkBox", "checked, setting to unChecked");
+                    myDB.updateFavorite(favoriteHelperList[groupPosition], "1");
+                    itemChecked.set(groupPosition, true);
+                    notifyDataSetChanged();
+
+                } else if (!cb.isChecked()) {
+                    // Log.v("checkBox", "unChecked, setting to Checked");
+                    myDB.updateFavorite(favoriteHelperList[groupPosition], "0");
+                    itemChecked.set(groupPosition, false);
+                    notifyDataSetChanged();
+                }
+            }
+
+        });
+        checkBox.setChecked(itemChecked.get(groupPosition));
         return convertView;
-    }
-
-    @Override
-    public void onClick(View v)
-    {
-        Log.v("Adapter", "Row button clicked");
     }
 
     @Override
@@ -116,14 +140,6 @@ public class contentListAdapter extends BaseExpandableListAdapter implements Vie
         TextView blessings = (TextView) convertView.findViewById(R.id.textBlessings);
         blessings.setText("Blessing(s): " + blessingsList[groupPosition][childPosition]);
 
-//        TextView tv = new TextView(context);
-//        tv.setText(childList[groupPosition][childPosition]);
-//        tv.setTextSize(15);
-//        tv.setPadding(90, 0, 0, 0);
-//        TextView tv1 = new TextView(context);
-//        tv1.setText(childList[groupPosition][childPosition]);
-//        tv1.setTextSize(15);
-//        tv1.setPadding(90, 5, 0, 0);
         return convertView;
     }
 

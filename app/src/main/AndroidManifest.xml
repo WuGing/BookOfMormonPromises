@@ -18,14 +18,14 @@
         </activity>
 
         <activity
-            android:name=".DataBaseHelper"
-            android:label="@string/title_activity_data_base_helper" >
-        </activity>
-
-        <activity
             android:name=".InfoActivity"
             android:label="@string/title_activity_info">
         </activity>
+
+        <activity android:name=".FragmentContentList"
+            android:label="FragmentContentList">
+
+            </activity>
     </application>
 
 </manifest>

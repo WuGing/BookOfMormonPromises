@@ -1,15 +1,15 @@
 package com.jacobburdis.bom;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -108,6 +108,9 @@ public class FragmentCategoryList extends ListFragment {
         b.moveToPosition(position);
 
         String numberHelper = b.getString(b.getColumnIndex("_id"));
+        TextView tv = (TextView) view.findViewById(R.id.categoryName);
+        String header = tv.getText().toString();
+
         int number = Integer.parseInt(numberHelper);
 
         Cursor c = myDB.getRow(number, fragmentIdentifier);
@@ -118,6 +121,7 @@ public class FragmentCategoryList extends ListFragment {
         Cursor conditionsCursor;
         Cursor blessingsCursor;
         Cursor favoriteCursor;
+        Cursor favoriteHelperCursor;
 
         switch ( fragmentIdentifierHelper )
         {
@@ -129,6 +133,7 @@ public class FragmentCategoryList extends ListFragment {
                 conditionsCursor = myDB.getRowsFavorites(content);
                 blessingsCursor = myDB.getRowsFavorites(content);
                 favoriteCursor = myDB.getRowsFavorites(content);
+                favoriteHelperCursor = myDB.getRowsFavorites(content);
                 break;
 
             // condition
@@ -139,6 +144,7 @@ public class FragmentCategoryList extends ListFragment {
                 conditionsCursor = myDB.getRowsCondition(content);
                 blessingsCursor = myDB.getRowsCondition(content);
                 favoriteCursor = myDB.getRowsCondition(content);
+                favoriteHelperCursor = myDB.getRowsCondition(content);
                 break;
 
             // blessing
@@ -149,6 +155,7 @@ public class FragmentCategoryList extends ListFragment {
                 conditionsCursor = myDB.getRowsBlessing(content);
                 blessingsCursor = myDB.getRowsBlessing(content);
                 favoriteCursor = myDB.getRowsBlessing(content);
+                favoriteHelperCursor = myDB.getRowsBlessing(content);
                 break;
 
             // chronological
@@ -159,6 +166,7 @@ public class FragmentCategoryList extends ListFragment {
                 conditionsCursor = myDB.getRowsBook(content);
                 blessingsCursor = myDB.getRowsBook(content);
                 favoriteCursor = myDB.getRowsBook(content);
+                favoriteHelperCursor = myDB.getRowsBook(content);
                 break;
 
             default:
@@ -168,31 +176,66 @@ public class FragmentCategoryList extends ListFragment {
                 conditionsCursor = null;
                 blessingsCursor = null;
                 favoriteCursor = null;
+                favoriteHelperCursor = null;
                 break;
         }
 
-        c = null;
+        c.close();
 
-        Fragment contentList = new FragmentContentList(parentListGetter(parentCursor),
-                childListGetter(childCursor), conditionsListGetter(conditionsCursor),
-                blessingsListGetter(blessingsCursor), favoriteGetter(favoriteCursor));
-        getFragmentManager().beginTransaction()
-                .addToBackStack(null)
-                .replace(android.R.id.content, contentList)
-                .commit();
+        Bundle args = new Bundle();
+
+        args.putStringArray("parentList", parentListGetter(parentCursor));                          // Parent List
+        args.putStringArray("childList", childListGetter(childCursor));                             // Child List
+        args.putStringArray("conditionsList", conditionsListGetter(conditionsCursor));              // Conditions List
+        args.putStringArray("blessingsList", blessingsListGetter(blessingsCursor));                 // Blessings List
+        args.putStringArray("favoriteList", favoriteGetter(favoriteCursor));                        // Favorite List
+        args.putStringArray("favoriteHelper", favoriteHelper(favoriteHelperCursor));                // Favorite Helper
+        args.putString("header", header);
+        args.putInt("titleHelper", this.fragmentIdentifierHelper);
+
+        Intent mIntent = new Intent(getActivity(), FragmentContentList.class);
+        mIntent.putExtras(args);
+        startActivity(mIntent);
+
     }
+
+    public String[] favoriteHelper(Cursor c)
+    {
+
+        List<String> favoriteHelper = new ArrayList<String>();
+        while (!c.isAfterLast())
+        {
+            favoriteHelper.add(recursiveFavoriteHelper(c));
+            c.moveToNext();
+        }
+
+        String[] favoriteHelperValues = favoriteHelper.toArray(new String[favoriteHelper.size()]);
+
+        c.close();
+        return favoriteHelperValues;
+    }
+
+    public String recursiveFavoriteHelper(Cursor c)
+    {
+        String temp =
+                c.getString(c.getColumnIndex(DataBaseHelper.KEY_FAVORITE_HELPER));
+        return temp;
+    }
+
 
     public String[] parentListGetter(Cursor c)
     {
 
         List<String> parent = new ArrayList<String>();
-        while (!c.isAfterLast()){
+        while (!c.isAfterLast())
+        {
             parent.add(recursiveParent(c));
             c.moveToNext();
         }
 
         String[] parentValues = parent.toArray(new String[parent.size()]);
 
+        c.close();
         return parentValues;
     }
 
@@ -203,7 +246,7 @@ public class FragmentCategoryList extends ListFragment {
         return temp;
     }
 
-    public String[][] childListGetter(Cursor c)
+    public String[] childListGetter(Cursor c)
     {
 
         List<String> child = new ArrayList<String>();
@@ -213,12 +256,9 @@ public class FragmentCategoryList extends ListFragment {
             c.moveToNext();
         }
 
-        String[][] childValues = new String[child.size()][child.size()];
-        for (int i=0; i < child.size(); i++)
-        {
-            childValues[i][0] = child.get(i);
-        }
+        String[] childValues = child.toArray(new String[child.size()]);
 
+        c.close();
         return childValues;
     }
 
@@ -229,7 +269,7 @@ public class FragmentCategoryList extends ListFragment {
         return temp;
     }
 
-    public String[][] conditionsListGetter(Cursor c)
+    public String[] conditionsListGetter(Cursor c)
     {
         List<String> conditions = new ArrayList<String>();
         while(!c.isAfterLast())
@@ -238,11 +278,8 @@ public class FragmentCategoryList extends ListFragment {
             c.moveToNext();
         }
 
-        String[][] conditionValues = new String[conditions.size()][conditions.size()];
-        for (int i=0; i < conditions.size(); i++)
-        {
-            conditionValues[i][0] = conditions.get(i);
-        }
+        String[] conditionValues = conditions.toArray(new String[conditions.size()]);
+
         return conditionValues;
     }
 
@@ -253,7 +290,7 @@ public class FragmentCategoryList extends ListFragment {
         return temp;
     }
 
-    public String[][] blessingsListGetter(Cursor c)
+    public String[] blessingsListGetter(Cursor c)
     {
         List<String> blessings = new ArrayList<String>();
         while(!c.isAfterLast())
@@ -262,11 +299,8 @@ public class FragmentCategoryList extends ListFragment {
             c.moveToNext();
         }
 
-        String[][] blessingValues = new String[blessings.size()][blessings.size()];
-        for ( int i = 0; i < blessings.size(); i++ )
-        {
-            blessingValues[i][0] = blessings.get(i);
-        }
+        String[] blessingValues = blessings.toArray(new String[blessings.size()]);
+
         return blessingValues;
     }
 
@@ -288,6 +322,7 @@ public class FragmentCategoryList extends ListFragment {
 
         String[] favoriteValues = favorite.toArray(new String[favorite.size()]);
 
+        c.close();
         return favoriteValues;
     }
 

@@ -1,5 +1,6 @@
 package com.jacobburdis.bom;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -39,13 +40,11 @@ public class DataBaseHelper extends SQLiteOpenHelper{
     public static final String KEY_REFERENCE = "reference";
     public static final String KEY_BOOK = "book";
     public static final String KEY_CONTENT= "content";
+    public static final String KEY_FAVORITE_HELPER = "favoriteHelper";
 
     public static final String[] ALL_KEYS_NORM = new String[] { KEY_ROWID, KEY_CONDITION,
             KEY_CONDITIONS, KEY_BLESSING, KEY_BLESSINGS, KEY_FAVORITE, KEY_REFERENCE,
-            KEY_BOOK, KEY_CONTENT};
-
-//    public static final String[] ALL_KEYS_ORDER = new String[] { KEY_ROWID, KEY_BOOK,
-//            KEY_REF, KEY_CONTENT };
+            KEY_BOOK, KEY_CONTENT, KEY_FAVORITE_HELPER};
 
     public DataBaseHelper(Context context)
     {
@@ -172,9 +171,9 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 
     public Cursor getRowsFavorites(String favorite)
     {
-        String where = KEY_FAVORITE + "=1";
+        String where = KEY_BOOK + "=?" + " AND " + KEY_FAVORITE + "=?";
         Cursor c = myDataBase.query(true, DB_TABLE, ALL_KEYS_NORM,
-                where, new String[] { favorite }, null, null, null, null);
+                where, new String[] { favorite, "1" }, KEY_REFERENCE, null, KEY_ROWID, null);
         if ( c != null)
             c.moveToFirst();
         return c;
@@ -262,6 +261,16 @@ public class DataBaseHelper extends SQLiteOpenHelper{
                 e.printStackTrace();
             }
         }
+    }
+
+    public void updateFavorite(String helperId, String favoriteIndicator)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues args = new ContentValues();
+        args.put(KEY_FAVORITE, favoriteIndicator);
+
+        db.update(DB_TABLE, args, "favoriteHelper=" + helperId, null);
     }
 
 }
