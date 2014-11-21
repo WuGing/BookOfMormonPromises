@@ -12,5 +12,6 @@
     <string name="info_attribute">(Clyde J. Williams, \"Following the Prophets: A Book of Mormon Perspective,\" Ensign, Jul 2000, 19)</string>
     <string name="info_quote">\"From the Book of Mormon we learn that the Lord always fulfills the promises given through his prophets\"</string>
     <string name="info_description">This app is designed to allow you to find promises in the Book of Mormon by topic. You can search by your part of the promise (if you are baptized...) or by God\'s part of the promise (...you will be saved). Discover the power of these precious promises.</string>
+    <string name="paypalDonate">"Donate:"</string>
 
 </resources>
