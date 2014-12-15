@@ -1,4 +1,4 @@
-package com.jacobburdis.bom;
+package com.jacobburdis.bompromises;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,10 +12,6 @@ import java.util.ArrayList;
 
 /**
  * Created by joshua on 4/30/14.
- * going to need different adapters for each view. Likely. Might have
- * to put some more thought into it. But will need to have an adapter
- * to make the list of labels, and then will need an adapter that
- * lists the references and the content of those references.
  */
 public class contentListAdapter extends BaseExpandableListAdapter {
     private Context context;

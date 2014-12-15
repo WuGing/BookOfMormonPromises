@@ -1,4 +1,4 @@
-package com.jacobburdis.bom;
+package com.jacobburdis.bompromises;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -26,7 +26,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 
     private final Context myContext;
 
-    private static String DB_PATH = "/data/data/com.jacobburdis.bom/databases/";
+    private static String DB_PATH = "/data/data/com.jacobburdis.bompromises/databases/";
     private static String DB_NAME = "promise";
 
     public String DB_TABLE = "promise";

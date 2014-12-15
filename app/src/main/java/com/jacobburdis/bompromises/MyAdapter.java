@@ -1,5 +1,6 @@
-package com.jacobburdis.bom;
+package com.jacobburdis.bompromises;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -21,14 +22,18 @@ class MyAdapter extends FragmentPagerAdapter {
     @Override
     public ListFragment getItem(int arg0)
     {
+        final String CATEGORY_STRING = "category_string";
+        final String CATEGORY_INT = "category_int";
         ListFragment fragment = null;
+        Bundle args = null;
+
         if ( arg0 == 0 )
         {
             fragment = new FragmentCategoryList("favorite", arg0);
         }
         if (arg0 == 1)
         {
-            fragment = new FragmentCategoryList("conditions", arg0);
+            fragment = new FragmentCategoryList("category", arg0);
         }
         if (arg0 == 2)
         {

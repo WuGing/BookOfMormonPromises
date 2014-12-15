@@ -1,4 +1,4 @@
-package com.jacobburdis.bom;
+package com.jacobburdis.bompromises;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;

@@ -1,5 +1,6 @@
-package com.jacobburdis.bom;
+package com.jacobburdis.bompromises;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -30,6 +31,7 @@ public class FragmentCategoryList extends ListFragment {
         // Required empty public constructor
     }
 
+    @SuppressLint("ValidFragment")
     public FragmentCategoryList(String identifier, int identifierHelper)
     {
         this.fragmentIdentifier = identifier;

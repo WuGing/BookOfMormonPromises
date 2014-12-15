@@ -1,4 +1,4 @@
-package com.jacobburdis.bom;
+package com.jacobburdis.bompromises;
 
 /**
  * Created by joshua on 4/24/14.
