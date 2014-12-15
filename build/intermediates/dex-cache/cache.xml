@@ -1,29 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pre-dex-items>
+<items version="2" >
 
     <item
-        dex="/Users/joshua/IDrive-Sync/androidDevelopment/projects/BookOfMormonPromises/app/build/intermediates/pre-dexed/debug/classes-b2e66f7fe3f5c94a369dcb8fddc73f275edfb506.jar"
-        jar="/Users/joshua/IDrive-Sync/androidDevelopment/projects/BookOfMormonPromises/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/classes.jar"
+        jar="/Users/joshua/Documents/Development/BookOfMormonPromises/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/classes.jar"
         jumboMode="false"
         revision="21.0.1"
-        sha1="95fd37732ec852e99f07eeb516a3650172f1d136"/>
+        sha1="81d42bf983a8741f4888a6e333e454e4a5e0eeb7">
+        <dex dex="/Users/joshua/Documents/Development/BookOfMormonPromises/app/build/intermediates/pre-dexed/debug/classes-b2e5d5db78c81ca4b5ae8a09e5066475cc68148a.jar" />
+    </item>
     <item
-        dex="/Users/joshua/IDrive-Sync/androidDevelopment/projects/BookOfMormonPromises/app/build/intermediates/pre-dexed/debug/classes-bac1a52f3bc97d0d6a73acc89a61aa88853623d6.jar"
-        jar="/Users/joshua/IDrive-Sync/androidDevelopment/projects/BookOfMormonPromises/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.0/classes.jar"
+        jar="/Users/joshua/Documents/Development/BookOfMormonPromises/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/classes.jar"
         jumboMode="false"
         revision="21.0.1"
-        sha1="686344a780033e4ba22b926cd225f8d4941247e6"/>
+        sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
+        <dex dex="/Users/joshua/Documents/Development/BookOfMormonPromises/app/build/intermediates/pre-dexed/debug/classes-7760a0421701ed6556fa7c8e086ac1bec592d672.jar" />
+    </item>
     <item
-        dex="/Users/joshua/IDrive-Sync/androidDevelopment/projects/BookOfMormonPromises/app/build/intermediates/pre-dexed/debug/internal_impl-21.0.0-68c1227bf575ed66b78f1ffe15c7173d10269f60.jar"
-        jar="/Users/joshua/IDrive-Sync/androidDevelopment/projects/BookOfMormonPromises/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.0/libs/internal_impl-21.0.0.jar"
+        jar="/Users/joshua/Documents/Development/BookOfMormonPromises/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/libs/internal_impl-21.0.3.jar"
         jumboMode="false"
         revision="21.0.1"
-        sha1="1609e6d42d0480b0f4188e2c29f75388fa12a8f0"/>
+        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
+        <dex dex="/Users/joshua/Documents/Development/BookOfMormonPromises/app/build/intermediates/pre-dexed/debug/internal_impl-21.0.3-d66dee545a7081db69ef4493c626cd2186b54ea3.jar" />
+    </item>
     <item
-        dex="/Users/joshua/IDrive-Sync/androidDevelopment/projects/BookOfMormonPromises/app/build/intermediates/pre-dexed/debug/support-annotations-21.0.0-d3b47974be63ea48f602320e8d512059a9ba2518.jar"
-        jar="/Users/joshua/Documents/adt-bundle-mac-x86_64-20130522/sdk/extras/android/m2repository/com/android/support/support-annotations/21.0.0/support-annotations-21.0.0.jar"
+        jar="/Users/joshua/Documents/adt-bundle-mac-x86_64-20130522/sdk/extras/android/m2repository/com/android/support/support-annotations/21.0.3/support-annotations-21.0.3.jar"
         jumboMode="false"
         revision="21.0.1"
-        sha1="1a578b9607b36266c63d43a4fa0ab5664dbe911e"/>
+        sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
+        <dex dex="/Users/joshua/Documents/Development/BookOfMormonPromises/app/build/intermediates/pre-dexed/debug/support-annotations-21.0.3-76416d74adaf4a3168740bd90c5bcaba4fe88c05.jar" />
+    </item>
 
-</pre-dex-items>
+</items>
